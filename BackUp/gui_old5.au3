@@ -7,9 +7,8 @@
 Example()
 
 Func Example()
-	Local $hGUI = GUICreate("Actualización de datos", 800, 700, -1, -1, $WS_SIZEBOX + $WS_SYSMENU) ; will create a dialog box that when displayed is centered
+	Local $hGUI = GUICreate("My GUI picture", 798, 620, -1, -1, $WS_SIZEBOX + $WS_SYSMENU) ; will create a dialog box that when displayed is centered
 	Local $idPic = GUICtrlCreatePic(@ScriptDir & "\src\img\fact_guide.jpg", 10, 10, 778, 423)
-	Local $idPicCSV = GUICtrlCreatePic(@ScriptDir & "\src\img\csv_example.jpg", 50, 470, 697, 56)
 	GUICtrlCreateLabel('Dentro del arhico CSV tener en cuenta el siguiente orden:', 30, 445, 300, 21)
 	GUISetState(@SW_SHOW)
 	
@@ -21,5 +20,5 @@ Func Example()
 		EndSwitch
 	WEnd
 	GUIDelete()
-	Exit
+    Exit
 EndFunc   ;==>Example
