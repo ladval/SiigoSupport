@@ -7,30 +7,38 @@
 #include "modulo_misc.au3"
 
 
-Func _InvoicesHeadersSupport($sFileLocation)
-	Local $a = ReadCSV($sFileLocation)
-	For $i = 0 To UBound($a) - 1 Step +1
-		Local $sInvoiceNumber = $a[$i][0]
-		Local $sDO = $a[$i][1]
-		Local $sPedido = $a[$i][2]
-		Local $sJefeCuenta = $a[$i][3]
-		Local $sProveedor = $a[$i][4]
-		Local $sTMR = $a[$i][5]
-		Local $sSQLInvoiceDataQuery = "SELECT JsonFact FROM [BotAbc].[dbo].[tfact_ApiProcesos] WHERE InvoiceNumber = '" & $sInvoiceNumber & "' AND Empresa = '860536003'"
-		Local $aSQLInvoiceDataQuery = _ModuloSQL_SQL_SELECT($sSQLInvoiceDataQuery)
-		Local $sJsonFactData = $aSQLInvoiceDataQuery[1][0]
-		Local $oJsonFactData = Json_Decode($sJsonFactData)
-		Local $sInvoiceState_8 = Json_Put($oJsonFactData, '.AdditionalProperty[8].Value', $sDO)
-		Local $sInvoiceState_7 = Json_Put($oJsonFactData, '.AdditionalProperty[7].Value', $sPedido)
-		Local $sInvoiceState_14 = Json_Put($oJsonFactData, '.AdditionalProperty[14].Value', $sJefeCuenta)
-		Local $sInvoiceState_3 = Json_Put($oJsonFactData, '.AdditionalProperty[3].Value', $sProveedor)
-		Local $sInvoiceState_13 = Json_Put($oJsonFactData, '.AdditionalProperty[13].Value', $sTMR)
-		Local $sStringJson = Json_Encode($oJsonFactData)
-		Local $sUpdateQuery = "UPDATE [BotAbc].[dbo].[tfact_ApiProcesos] SET  Status = 'SinProcesar', JsonFact = '" & $sStringJson & "' WHERE InvoiceNumber = '" & $sInvoiceNumber & "'"
-		Local $aSQLInvoiceDataQuery = _ModuloSQL_SQL_EXEC($sUpdateQuery)
-		ConsoleWrite($sInvoiceNumber & ': OK' & @CRLF)
-	Next
-EndFunc   ;==>_InvoicesHeadersSupport
+Func _InvoicesHeadersSupport()
+Local $sJsonFileSettings = @ScriptDir & "\test.json"
+Local $sJsonSettings = _ReadDataFromFile($sJsonFileSettings)
+Local $oJsonSettings = Json_Decode($sJsonSettings)
+Local $sInvoiceState_8 = Json_Get($oJsonSettings, '.AdditionalProperty[8].Value')
+Local $sInvoiceState_7 = Json_Get($oJsonSettings, '.AdditionalProperty[7].Value')
+Local $sInvoiceState_14 = Json_Get($oJsonSettings, '.AdditionalProperty[14].Value')
+Local $sInvoiceState_3 = Json_Get($oJsonSettings, '.AdditionalProperty[3].Value')
+Local $sInvoiceState_13 = Json_Get($oJsonSettings, '.AdditionalProperty[13].Value')
+Local $a = ReadCSV(@ScriptDir & "\Libro2.csv")
+For $i = 0 To UBound($a) - 1 Step +1
+	Local $sInvoiceNumber = $a[$i][0]
+	Local $sDO = $a[$i][1]
+	Local $sPedido = $a[$i][2]
+	Local $sJefeCuenta = $a[$i][3]
+	Local $sProveedor = $a[$i][4]
+	Local $sTMR = $a[$i][5]
+	Local $sSQLInvoiceDataQuery = "SELECT JsonFact FROM [BotAbc].[dbo].[tfact_ApiProcesos] WHERE InvoiceNumber = '" & $sInvoiceNumber & "' AND Empresa = '860536003'"
+	Local $aSQLInvoiceDataQuery = _ModuloSQL_SQL_SELECT($sSQLInvoiceDataQuery)
+	Local $sJsonFactData = $aSQLInvoiceDataQuery[1][0]
+	Local $oJsonFactData = Json_Decode($sJsonFactData)
+	Local $sInvoiceState_8 = Json_Put($oJsonFactData, '.AdditionalProperty[8].Value', $sDO)
+	Local $sInvoiceState_7 = Json_Put($oJsonFactData, '.AdditionalProperty[7].Value', $sPedido)
+	Local $sInvoiceState_14 = Json_Put($oJsonFactData, '.AdditionalProperty[14].Value', $sJefeCuenta)
+	Local $sInvoiceState_3 = Json_Put($oJsonFactData, '.AdditionalProperty[3].Value', $sProveedor)
+	Local $sInvoiceState_13 = Json_Put($oJsonFactData, '.AdditionalProperty[13].Value', $sTMR)
+	Local $sStringJson = Json_Encode($oJsonFactData)
+	Local $sUpdateQuery = "UPDATE [BotAbc].[dbo].[tfact_ApiProcesos] SET  Status = 'SinProcesar', JsonFact = '" & $sStringJson & "' WHERE InvoiceNumber = '" & $sInvoiceNumber & "'"
+	Local $aSQLInvoiceDataQuery = _ModuloSQL_SQL_EXEC($sUpdateQuery)
+	ConsoleWrite($sInvoiceNumber & ': OK' & @CRLF)
+Next
+EndFunc
 
 Func ReadCSV($p_csv_file)
 	Local $file = FileOpen($p_csv_file)

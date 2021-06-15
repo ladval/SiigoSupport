@@ -39,7 +39,7 @@ Func _GUI_InvoicesHeadersSupport()
 				Local $sInput_FileSelection = GUICtrlRead($hInput_FileSelection)
 				$sInput_FileSelection = StringStripWS($sInput_FileSelection, 8)
 				If StringLen($sInput_FileSelection) > 0 Then
-					_InvoicesHeadersSupport($sInput_FileSelection)
+					_InvoicesHeadersSupport($sFileLocation)
 				Else
 					MsgBox($MB_ICONINFORMATION + $MB_TOPMOST, 'Campos incompletos', 'Por favor complete todos los campos')
 				EndIf
@@ -51,4 +51,4 @@ Func _GUI_InvoicesHeadersSupport()
 	WEnd
 	GUIDelete()
 	Exit
-EndFunc   ;==>_GUI_InvoicesHeadersSupport
+EndFunc   ;==>_InvoicesHeadersSupport

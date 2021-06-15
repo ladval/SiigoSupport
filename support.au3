@@ -15,8 +15,6 @@ Local $sInvoiceState_7 = Json_Get($oJsonSettings, '.AdditionalProperty[7].Value'
 Local $sInvoiceState_14 = Json_Get($oJsonSettings, '.AdditionalProperty[14].Value')
 Local $sInvoiceState_3 = Json_Get($oJsonSettings, '.AdditionalProperty[3].Value')
 Local $sInvoiceState_13 = Json_Get($oJsonSettings, '.AdditionalProperty[13].Value')
-
-
 Local $a = ReadCSV($sFileData)
 For $i = 0 To UBound($a) - 1 Step +1
 	Local $sInvoiceNumber = $a[$i][0]
