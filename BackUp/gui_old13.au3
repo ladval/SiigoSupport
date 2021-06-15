@@ -36,14 +36,12 @@ Func _InvoicesHeadersSupport()
 				GUICtrlSetState($hButton_FileSelection, $GUI_DISABLE)
 				GUICtrlSetState($hButton_Ejecutar, $GUI_DISABLE)
 				Local $sInput_FileSelection = GUICtrlRead($hInput_FileSelection)
-				$sInput_FileSelection = StringStripWS($sInput_FileSelection, 8)
-				If StringLen($sInput_FileSelection) > 0 Then
-					
+                $sInput_FileSelection = StringStripWS($sInput_FileSelection,8)
+                If StringLen($sInput_FileSelection)>0 Then 
 
-                    
-				Else
-					MsgBox($MB_ICONINFORMATION + $MB_TOPMOST, 'Campos incompletos', 'Por favor complete todos los campos')
-				EndIf
+                    Else
+MsgBox($MB_ICONINFORMATION+$MB_TOPMOST,'Campos incompletos','Por favor complete todos los campos')
+                EndIf
 				ConsoleWrite($sInput_FileSelection & @CRLF)
 				GUICtrlSetState($hInput_FileSelection, $GUI_ENABLE)
 				GUICtrlSetState($hButton_FileSelection, $GUI_ENABLE)
