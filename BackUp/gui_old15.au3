@@ -1,7 +1,3 @@
-#Region ;**** Directives created by AutoIt3Wrapper_GUI ****
-#AutoIt3Wrapper_Icon=src\ico\puzzle.ico
-#AutoIt3Wrapper_Outfile_x64=InvoiceSupport.exe
-#EndRegion ;**** Directives created by AutoIt3Wrapper_GUI ****
 #include <GUIConstantsEx.au3>
 #include <WindowsConstants.au3>
 #include <GuiConstantsEx.au3>
@@ -44,11 +40,10 @@ Func _GUI_InvoicesHeadersSupport()
 				$sInput_FileSelection = StringStripWS($sInput_FileSelection, 8)
 				If StringLen($sInput_FileSelection) > 0 Then
 					_InvoicesHeadersSupport($sInput_FileSelection)
-					MsgBox($MB_ICONINFORMATION + $MB_TOPMOST, 'Ejecución correcta', 'El proceso se ejecutó correctamente', 3)
+					MsgBox($MB_ICONINFORMATION + $MB_TOPMOST, 'Ejecución correcta', 'El proceso se ejecutó correctamente',3)
 				Else
 					MsgBox($MB_ICONINFORMATION + $MB_TOPMOST, 'Campos incompletos', 'Por favor complete todos los campos')
 				EndIf
-				GUICtrlSetData($hInput_FileSelection, "")
 				ConsoleWrite($sInput_FileSelection & @CRLF)
 				GUICtrlSetState($hInput_FileSelection, $GUI_ENABLE)
 				GUICtrlSetState($hButton_FileSelection, $GUI_ENABLE)

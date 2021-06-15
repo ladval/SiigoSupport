@@ -6,10 +6,9 @@
 #include "modulo_sql.au3"
 #include "modulo_misc.au3"
 
-
 Func _InvoicesHeadersSupport($sFileLocation)
 	Local $a = ReadCSV($sFileLocation)
-	For $i = 0 To UBound($a) - 1 Step +1
+	For $i = 1 To UBound($a) - 1 Step +1
 		Local $sInvoiceNumber = $a[$i][0]
 		Local $sDO = $a[$i][1]
 		Local $sPedido = $a[$i][2]
@@ -44,15 +43,12 @@ EndFunc   ;==>ReadCSV
 
 Func StringToArray($p_string, $p_transpose_1d = False, $p_delim_col = "|", $p_delim_row = @CRLF, $p_arr_delim_col = Chr(31), $p_arr_delim_row = Chr(30))
 	Local $array, $rows, $cols, $last_row, $last_col
-
 	$rows = StringSplit($p_string, $p_delim_row, 3)
 	$last_row = UBound($rows) - 1
-
 	If $last_row < 1 Then
 		;Array rows = 0
 		$cols = StringSplit($p_string, $p_delim_col, 3)
 		$last_col = UBound($cols) - 1
-
 		If $last_col < 1 Then
 			;Array rows = 0, columns = 0
 			Dim $array[1]
