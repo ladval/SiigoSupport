@@ -8,7 +8,6 @@
 #include <GDIPlus.au3>
 #include "main.au3"
 
-
 _GUI_InvoicesHeadersSupport()
 
 Func _GUI_InvoicesHeadersSupport()
@@ -20,7 +19,6 @@ Func _GUI_InvoicesHeadersSupport()
 	Local $hInput_FileSelection = GUICtrlCreateInput('', 50, 545, 535, 23)
 	Local $hButton_FileSelection = GUICtrlCreateButton('Seleccionar archivo ', 600, 544, 140, 25)
 	Local $hButton_Ejecutar = GUICtrlCreateButton('Ejecutar', 305, 585, 190, 27)
-
 	While 1
 		Switch GUIGetMsg()
 			Case $GUI_EVENT_CLOSE
@@ -31,7 +29,7 @@ Func _GUI_InvoicesHeadersSupport()
 				GUICtrlSetState($hButton_FileSelection, $GUI_DISABLE)
 				GUICtrlSetState($hButton_Ejecutar, $GUI_DISABLE)
 				Local Const $sMessage = "Selecciona el archivo"
-				Local $sFileOpenDialog = FileOpenDialog($sMessage, @DesktopDir & "\", "CSV (*.csv)", BitOR($FD_FILEMUSTEXIST, $FD_MULTISELECT))
+				Local $sFileOpenDialog = FileOpenDialog($sMessage, @ScriptDir & "\", "CSV (*.csv)", BitOR($FD_FILEMUSTEXIST, $FD_MULTISELECT))
 				GUICtrlSetData($hInput_FileSelection, $sFileOpenDialog)
 				GUICtrlSetState($hInput_FileSelection, $GUI_ENABLE)
 				GUICtrlSetState($hButton_FileSelection, $GUI_ENABLE)

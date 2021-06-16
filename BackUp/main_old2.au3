@@ -18,20 +18,20 @@ Func _InvoicesHeadersSupport($sFileLocation)
 		Local $sSQLInvoiceDataQuery = "SELECT JsonFact FROM [BotAbc].[dbo].[tfact_ApiProcesos] WHERE InvoiceNumber = '" & $sInvoiceNumber & "' AND Empresa = '860536003'"
 		
 		Local $aSQLInvoiceDataQuery = _ModuloSQL_SQL_SELECT($sSQLInvoiceDataQuery)
-		If IsArray($aSQLInvoiceDataQuery) Then
-			Local $sJsonFactData = $aSQLInvoiceDataQuery[1][0]
-			Local $oJsonFactData = Json_Decode($sJsonFactData)
-			Local $sInvoiceState_8 = Json_Put($oJsonFactData, '.AdditionalProperty[8].Value', $sDO)
-			Local $sInvoiceState_7 = Json_Put($oJsonFactData, '.AdditionalProperty[7].Value', $sPedido)
-			Local $sInvoiceState_14 = Json_Put($oJsonFactData, '.AdditionalProperty[14].Value', $sJefeCuenta)
-			Local $sInvoiceState_3 = Json_Put($oJsonFactData, '.AdditionalProperty[3].Value', $sProveedor)
-			Local $sInvoiceState_13 = Json_Put($oJsonFactData, '.AdditionalProperty[13].Value', $sTMR)
-			Local $sStringJson = Json_Encode($oJsonFactData)
-			Local $sUpdateQuery = "UPDATE [BotAbc].[dbo].[tfact_ApiProcesos] SET  Status = 'SinProcesar', JsonFact = '" & $sStringJson & "' WHERE InvoiceNumber = '" & $sInvoiceNumber & "'"
-			Local $aSQLInvoiceDataQuery = _ModuloSQL_SQL_EXEC($sUpdateQuery)
-			ConsoleWrite($sInvoiceNumber & ': OK' & @CRLF)
+		If IsArray($aSQLInvoiceDataQuery) Then 
+		Local $sJsonFactData = $aSQLInvoiceDataQuery[1][0]
+		Local $oJsonFactData = Json_Decode($sJsonFactData)
+		Local $sInvoiceState_8 = Json_Put($oJsonFactData, '.AdditionalProperty[8].Value', $sDO)
+		Local $sInvoiceState_7 = Json_Put($oJsonFactData, '.AdditionalProperty[7].Value', $sPedido)
+		Local $sInvoiceState_14 = Json_Put($oJsonFactData, '.AdditionalProperty[14].Value', $sJefeCuenta)
+		Local $sInvoiceState_3 = Json_Put($oJsonFactData, '.AdditionalProperty[3].Value', $sProveedor)
+		Local $sInvoiceState_13 = Json_Put($oJsonFactData, '.AdditionalProperty[13].Value', $sTMR)
+		Local $sStringJson = Json_Encode($oJsonFactData)
+		Local $sUpdateQuery = "UPDATE [BotAbc].[dbo].[tfact_ApiProcesos] SET  Status = 'SinProcesar', JsonFact = '" & $sStringJson & "' WHERE InvoiceNumber = '" & $sInvoiceNumber & "'"
+		Local $aSQLInvoiceDataQuery = _ModuloSQL_SQL_EXEC($sUpdateQuery)
+		ConsoleWrite($sInvoiceNumber & ': OK' & @CRLF)
 		Else
-			ConsoleWrite($sInvoiceNumber & ': NO REGISTRADA' & @CRLF)
+		ConsoleWrite($sInvoiceNumber & ': NO REGISTRADA' & @CRLF)
 		EndIf
 	Next
 EndFunc   ;==>_InvoicesHeadersSupport
